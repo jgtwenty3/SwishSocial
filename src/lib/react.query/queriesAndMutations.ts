@@ -4,29 +4,11 @@ import {
     useQueryClient,
     useInfiniteQuery,
 } from '@tanstack/react-query';
-import { createUserAccount, signInAccount, signOutAccount, createPost, getRecentPosts, likePost, savePost, deleteSavedPost, getCurrentUser } from '../appwrite/api';
-import { INewUser, INewPost } from '@/types';
+import deletePost, { createUserAccount, signInAccount, signOutAccount, createPost, getRecentPosts, likePost, savePost, deleteSavedPost, getCurrentUser, getPostById, updatePost } from '../appwrite/api';
+import { INewUser, INewPost, IUpdatePost } from '@/types';
+import { QUERY_KEYS } from './queryKeys';
 
-export enum QUERY_KEYS {
-  // AUTH KEYS
-  CREATE_USER_ACCOUNT = "createUserAccount",
 
-  // USER KEYS
-  GET_CURRENT_USER = "getCurrentUser",
-  GET_USERS = "getUsers",
-  GET_USER_BY_ID = "getUserById",
-
-  // POST KEYS
-  GET_POSTS = "getPosts",
-  GET_INFINITE_POSTS = "getInfinitePosts",
-  GET_RECENT_POSTS = "getRecentPosts",
-  GET_POST_BY_ID = "getPostById",
-  GET_USER_POSTS = "getUserPosts",
-  GET_FILE_PREVIEW = "getFilePreview",
-
-  //  SEARCH KEYS
-  SEARCH_POSTS = "getSearchPosts",
-}
 
 export const useCreateUserAccount= () =>{
     return useMutation({
@@ -140,4 +122,39 @@ export const useGetCurrentUser =() =>{
     queryFn: getCurrentUser
   })
 }
+
+export const useGetPostById = (postId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
+    queryFn: () => getPostById(postId),
+    enabled: !!postId
+  });
+};
+
+export const useUpdatePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (post:IUpdatePost) => updatePost(post),
+    onSuccess: (data) =>{
+      queryClient.invalidateQueries({
+        queryKey :[QUERY_KEYS.GET_POST_BY_ID, data?.$id]
+      })
+    }
+  });
+};
+
+export const useDeletePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({postId, imageId}: {postId:string, imageId:string}) => deletePost(postId, imageId),
+    onSuccess: () =>{
+      queryClient.invalidateQueries({
+        queryKey :[QUERY_KEYS.GET_RECENT_POSTS]
+      })
+    }
+  });
+};
+
 

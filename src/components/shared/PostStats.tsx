@@ -2,6 +2,7 @@ import { Models } from 'appwrite'
 import React, { useState, useEffect } from 'react'
 import { useDeleteSavedPost, useGetCurrentUser, useLikePost, useSavePost } from '@/lib/react.query/queriesAndMutations';
 import { checkIsLiked } from '@/lib/utils/utils';
+import { useLocation } from 'react-router-dom';
 
 type PostStatsProps = {
   post: Models.Document;
@@ -9,6 +10,7 @@ type PostStatsProps = {
 };
 
 const PostStats = ({ post, userId }: PostStatsProps) => {
+  const location = useLocation();
   const likesList = post.likes.map((user: Models.Document) => user.$id);
 
   const [likes, setLikes] = useState<string[]>(likesList);
