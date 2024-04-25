@@ -63,8 +63,8 @@ const SigninForm = () => {
 
   return (
     <Form {...form}>
-      <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/images/logo.svg" alt="logo" />
+      <div className="sm:w-300 flex-center flex-col">
+      <img src="/assets/images/swish-logo.png" alt="logo" style={{ width: '400px', height: 'auto' }} />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Log in to your account
@@ -117,7 +117,8 @@ const SigninForm = () => {
             Don&apos;t have an account?
             <Link
               to="/sign-up"
-              className="text-primary-500 text-small-semibold ml-1">
+              className="text-red
+               text-small-semibold ml-1">
               Sign up
             </Link>
           </p>
