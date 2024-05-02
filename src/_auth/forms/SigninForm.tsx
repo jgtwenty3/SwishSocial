@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Button } from '@/components/ui/button';
-import Loader from "@/components/shared/Loader";
+
 import { Input } from "@/components/ui/input";
 
 import { SigninValidation } from "@/lib/validation";
@@ -26,10 +26,10 @@ import { useUserContext } from "@/context/AuthContext";
 const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
 
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -104,13 +104,14 @@ const SigninForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isLoading || isUserLoading ? (
+            {/* {isLoading || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
             ) : (
               "Log in"
-            )}
+            )} */}
+            "Log In"
           </Button>
 
           <p className="text-small-regular text-light-2 text-center mt-2">
