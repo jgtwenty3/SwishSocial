@@ -42,7 +42,8 @@ module.exports = {
         '465': '465px',
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        
+        courier: ['Courier', 'monospace'],
 
       },
       keyframes: {

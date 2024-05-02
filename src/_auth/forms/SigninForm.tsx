@@ -63,14 +63,14 @@ const SigninForm = () => {
 
   return (
     <Form {...form}>
-      <div className="sm:w-300 flex-center flex-col">
-      <img src="/assets/images/swish-logo.png" alt="logo" style={{ width: '400px', height: 'auto' }} />
+      <div className="sm:w-420 flex-center flex-col">
+        <img src="/assets/images/swish-logo.png" alt="logo" />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
           Log in to your account
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
-          Welcome back! Please enter your details.
+          Welcome back.
         </p>
         <form
           onSubmit={form.handleSubmit(handleSignin)}
@@ -117,8 +117,7 @@ const SigninForm = () => {
             Don&apos;t have an account?
             <Link
               to="/sign-up"
-              className="text-red
-               text-small-semibold ml-1">
+              className="text-red text-small-semibold ml-1">
               Sign up
             </Link>
           </p>

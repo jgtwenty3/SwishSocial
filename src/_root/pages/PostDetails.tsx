@@ -5,13 +5,22 @@ import { useUserContext } from '@/context/AuthContext';
 import { useGetPostById } from '@/lib/react.query/queriesAndMutations'
 import { multiFormatDateString } from '@/lib/utils/utils';
 import { Link, useParams } from 'react-router-dom';
+import { useDeletePost } from '@/lib/react.query/queriesAndMutations';
+import { useNavigate } from 'react-router-dom';
 
 const PostDetails = () => {
+  const navigate = useNavigate();
   const {id} = useParams()
   const {data: post, isPending}= useGetPostById(id || '') ;
   const {user} = useUserContext();
+  const { mutate: deletePost } = useDeletePost();
 
-  const handleDeletePost = ()=>{}
+  const handleDeletePost = () => {
+    deletePost({ postId: id, imageId: post?.imageId });
+    navigate(-1);
+  };
+  
+  console.log(post)
 
   return (
     <div className = "post_details-container">
@@ -80,6 +89,7 @@ const PostDetails = () => {
                   ))}
                 </ul>
             </div>
+            
             <div className="w-full">
               <PostStats post={post} userId={user.id} />
             </div>
