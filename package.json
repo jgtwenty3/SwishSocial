@@ -2,6 +2,7 @@
   "name": "swishsocial",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://swishsocial.club",
   "type": "module",
   "scripts": {
     "dev": "vite",
