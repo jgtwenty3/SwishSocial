@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const PostDetails = () => {
   const navigate = useNavigate();
   const {id} = useParams()
-  const {data: post, isPending}= useGetPostById(id || '') ;
+  const {data: post, isPending}= useGetPostById(id ?? '') ;
   const {user} = useUserContext();
   const { mutate: deletePost } = useDeletePost();
 
@@ -19,7 +19,6 @@ const PostDetails = () => {
     deletePost({ postId: id, imageId: post?.imageId });
     navigate(-1);
   };
-  
   console.log(post)
 
   return (
